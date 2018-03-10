@@ -142,11 +142,7 @@ class TagList extends Component {
                             <div className="col-sm-1"></div>
                             <div className="col-sm-8">
                                 <h3> See the comparison in a graph! </h3>
-                                <BarChart ylabel="Number of appareances"
-                                    width={this.state.width}
-                                    height={500}
-                                    margin={margin}
-                                    data={data} />
+                                
                             </div>
                         </div>
                     </div>
