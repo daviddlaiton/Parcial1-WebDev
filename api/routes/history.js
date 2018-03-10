@@ -1,4 +1,4 @@
-/* const express = require('express');
+const express = require('express');
 const hashtagFinder = require("../models/hashtag");
 const router = express.Router();
 
@@ -110,4 +110,4 @@ module.exports = function (app, express) {
 
 
 
-}; */
+};
