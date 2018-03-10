@@ -25,7 +25,7 @@ router.post("/hashtag", function(req, res, next){
 
 
 
-router.get("/hashtag", function(req,res,next){
+router.get("/hashtag", function(req,res){
     MongoClient.connect(db, function(err, db){
         if(err){
             throw err;
@@ -46,68 +46,3 @@ router.get("/hashtag", function(req,res,next){
         })
     })
 });
-
-
-
-
-
-
-module.exports = function (app, express) {
-    router.post("/:hashtag", (req, res, next) => {
-        
-        let hashToAdd = new hashtagFinder({
-            _id: new mongoose.Types.ObjectId(),
-            tag: req.body.tag,
-            winnerTag: req.body.winnerTag
-        });
-
-        hashtagFinder.findOne({ hashtag: req.params.hashtag })
-            .exec()
-            .then(resp => {
-                if (resp === null || resp === undefined) {
-                    hashToAdd.save();
-                    res.status(200).json({
-                        success: true,
-                        message: "hashtag added",
-                        tag: resp.tag,
-                        winnerTag: resp.winnerTag
-                    });
-                }
-
-                else{
-                    res.status(500).json({
-                        success: false,
-                        message: "hashtag already exist"
-                    });
-                }
-            })
-
-
-    });
-
-
-    router.get("/:hashtag", (req, res, next) => {
-        let hash = req.params.hashtag;
-        hashtagFinder.findOne({ _hashtag: hash })
-            .exec()
-            .then(h => {
-                if (h === undefined || h === null) {
-                    res.status(401).json({
-                        succes: false,
-                        message: "never did a request"
-                    });
-                }
-                else {
-                    res.json({
-                        succes: true,
-                        message: "hashtag found",
-                        tag: doc.tag,
-                        winnerTag: doc.winnerTag
-                    })
-                }
-            })
-    });
-
-
-
-};
