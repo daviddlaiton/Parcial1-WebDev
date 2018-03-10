@@ -12,7 +12,7 @@ router.post("/hashtag", function(req, res, next){
             throw err;
         }
         
-        let hashtagsCollection = db.collection("hashtags");
+        let hashtagsCollection = db.collection("hashtag");
         hashtagsCollection.insert({tag: hash, winnerTag: winner});
         res.status(200).json({
             message : "Success"
@@ -31,7 +31,7 @@ router.get("/hashtag", function(req,res,next){
             throw err;
         }
 
-        let hashtagsCollection = db.collection("hashtags");
+        let hashtagsCollection = db.collection("hashtag");
         let hashtags = hashtagsCollection.find({}).toArray(function (err, resp){
             if(err){
                 throw err;
