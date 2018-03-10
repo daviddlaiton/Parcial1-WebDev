@@ -13,16 +13,16 @@ class App extends Component {
         }
 
         this.handleList = this.handleList.bind(this);
-        /* this.handleHistory = this.handleHistory.bind(this); */
+        this.handleHistory = this.handleHistory.bind(this);
     }
 
     handleList(event){
         this.setState({display: "tagList"});
     }
-/* 
+
     handleHistory(event){
         this.setState({display: "history"});
-    } */
+    }
 
     render(){
         if(this.state.display === "tag"){
@@ -44,7 +44,7 @@ class App extends Component {
             );
         }
 
-        /* if(this.state.display === "history"){
+        if(this.state.display === "history"){
             return(
                 <div>
                     <Tag  onList={this.handleList} onHistory={this.handleHistory} />
@@ -53,7 +53,7 @@ class App extends Component {
                     <History />
                 </div>
             );
-        } */
+        }
     }
 }
 
