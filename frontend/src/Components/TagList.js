@@ -148,6 +148,7 @@ class TagList extends Component {
                                     margin={margin}
                                     data={data} />
                             </div>
+                            <input type="submit" value="Look for another" onClick={this.handleTryagain} />
                         </div>
                     </div>
                 </div>
@@ -159,7 +160,6 @@ class TagList extends Component {
                 <div className="container-fluid">
                     <h1> Hashtag not found, please try again! </h1>
                     <input type="submit" value="Try again" onClick={this.handleTryagain} />
-
                 </div>
             );
         }
