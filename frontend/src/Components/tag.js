@@ -26,6 +26,7 @@ export class Tag extends React.Component {
   }
 
   handleHistory(event) {
+    
     event.preventDefault();
     console.log(this.props);
     let history = this.props.onHistory;
