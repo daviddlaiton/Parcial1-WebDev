@@ -46,3 +46,5 @@ router.get("/hashtag", function(req,res){
         })
     })
 });
+
+model.exports = router;
