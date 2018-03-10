@@ -1,33 +1,57 @@
+/* 
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+John, si llegas a ver esto y te preguntas por qué está comentado, es porque intenté de todo para que funcionara pero nunca se desplegaba
+correctamente en Heroku y mi cabeza no da para más. Unicamente pude hacer la búsqueda normal y mostrar un gráfico con eso. 
+-----------------------------------------------------------------------------------------------------------------------------------------
+
 const express = require('express');
 const hashtagFinder = require("../models/hashtag");
 const router = express.Router();
 
 var db = "mongodb://user:user@ds163418.mlab.com:63418/instagramhashtag";
 
-router.get("/hashtags/", function(req, res) {
-    Hashtag.find(function(err, tags) {
-      if (err) return res.send(err);
-      let data = {};
-      res.json({tags:tags,success:true});
-    })
-  });
-
-
-  router.post("/hashtags/", function(req, res) {
-    Hashtag.findOne({tag:req.body.tag}, function(err, ht){
-      if(!ht){
-        let tag = new Hashtag();
-        tag.tag = req.body.tag;
-        tag.save(function(err) {
-          if (err) {
-            return res.send(err);
-          }
-          console.log(tag);
-          res.json({ success: true, message: "Added" });
+router.post("/hashtag", function(req, res, next){
+    let hash = req.body.tag;
+    let winner = req.body.winnerTag;
+    MongoClient.connect(db, function(err, db){
+        if(err){
+            throw err;
+        }
+        
+        let hashtagsCollection = db.collection("hashtag");
+        hashtagsCollection.insert({tag: hash, winnerTag: winner});
+        res.status(200).json({
+            message : "Success"
         })
-      }
+        db.close()
     })
-  });
-  module.exports = router;
+})
 
-model.exports = router;
+
+
+
+
+router.get("/hashtag", function(req,res){
+    MongoClient.connect(db, function(err, db){
+        if(err){
+            throw err;
+        }
+
+        let hashtagsCollection = db.collection("hashtag");
+        let hashtags = hashtagsCollection.find({}).toArray(function (err, resp){
+            if(err){
+                throw err;
+            }
+
+            res.status(200).json({
+                status : 200,
+                hashtag : resp
+            })
+
+            db.close()
+        })
+    })
+});
+
+model.exports = router; */
