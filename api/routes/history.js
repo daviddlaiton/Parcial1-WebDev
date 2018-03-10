@@ -53,8 +53,6 @@ router.get("/hashtag", function(req,res,next){
 
 
 module.exports = function (app, express) {
-
-    console.log("GOL")
     router.post("/:hashtag", (req, res, next) => {
         
         let hashToAdd = new hashtagFinder({

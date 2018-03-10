@@ -26,7 +26,7 @@ export class Tag extends React.Component {
   }
 
   handleHistory(event) {
-    
+
     event.preventDefault();
     console.log(this.props);
     let history = this.props.onHistory;
@@ -52,7 +52,7 @@ export class Tag extends React.Component {
                   <label>Hashtag:</label>
                   <input type="text" id="fname" name="firstname" placeholder="Hashtag..." onChange={this.handleHashtagChange} />
                   <input type="submit" value="Search" onClick={this.handleSubmit} />
-                  <input type="submit" value="See history search" onClick={this.handleHistory} />
+                  {/* <input type="submit" value="See history search" onClick={this.handleHistory} />*/}
                 </form>
               </div>
             </div>

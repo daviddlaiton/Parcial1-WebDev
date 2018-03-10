@@ -117,15 +117,6 @@ class TagList extends Component {
                     this.setState({ part: "loaded" });
                 }
             })
-            .then(() => {
-                fetch("/history/" + localStorage.getItem("hashtag"),{
-                    method : "POST",
-                    body: JSON.stringify(this.state.top),
-                    headers: {
-                        "Content-Type": "application/json"
-                      }
-                }).then(response => response.json())
-            });
     }
 
     render() {
