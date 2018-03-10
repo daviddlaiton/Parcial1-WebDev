@@ -1,5 +1,6 @@
 /* 
 
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 John, si llegas a ver esto y te preguntas por qué está comentado, es porque intenté de todo para que funcionara pero nunca se desplegaba
 correctamente en Heroku y mi cabeza no da para más. Unicamente pude hacer la búsqueda normal y mostrar un gráfico con eso. 
@@ -19,7 +20,7 @@ router.post("/hashtag", function(req, res, next){
             throw err;
         }
         
-        let hashtagsCollection = db.collection("hashtag");
+        let hashtagsCollection = db.collection("hashtags");
         hashtagsCollection.insert({tag: hash, winnerTag: winner});
         res.status(200).json({
             message : "Success"
@@ -32,13 +33,13 @@ router.post("/hashtag", function(req, res, next){
 
 
 
-router.get("/hashtag", function(req,res){
+router.get("/hashtag", function(req,res,next){
     MongoClient.connect(db, function(err, db){
         if(err){
             throw err;
         }
 
-        let hashtagsCollection = db.collection("hashtag");
+        let hashtagsCollection = db.collection("hashtags");
         let hashtags = hashtagsCollection.find({}).toArray(function (err, resp){
             if(err){
                 throw err;
@@ -54,4 +55,67 @@ router.get("/hashtag", function(req,res){
     })
 });
 
-model.exports = router; */
+
+
+
+
+
+module.exports = function (app, express) {
+    router.post("/:hashtag", (req, res, next) => {
+        
+        let hashToAdd = new hashtagFinder({
+            _id: new mongoose.Types.ObjectId(),
+            tag: req.body.tag,
+            winnerTag: req.body.winnerTag
+        });
+
+        hashtagFinder.findOne({ hashtag: req.params.hashtag })
+            .exec()
+            .then(resp => {
+                if (resp === null || resp === undefined) {
+                    hashToAdd.save();
+                    res.status(200).json({
+                        success: true,
+                        message: "hashtag added",
+                        tag: resp.tag,
+                        winnerTag: resp.winnerTag
+                    });
+                }
+
+                else{
+                    res.status(500).json({
+                        success: false,
+                        message: "hashtag already exist"
+                    });
+                }
+            })
+
+
+    });
+
+
+    router.get("/:hashtag", (req, res, next) => {
+        let hash = req.params.hashtag;
+        hashtagFinder.findOne({ _hashtag: hash })
+            .exec()
+            .then(h => {
+                if (h === undefined || h === null) {
+                    res.status(401).json({
+                        succes: false,
+                        message: "never did a request"
+                    });
+                }
+                else {
+                    res.json({
+                        succes: true,
+                        message: "hashtag found",
+                        tag: doc.tag,
+                        winnerTag: doc.winnerTag
+                    })
+                }
+            })
+    });
+
+
+
+}; */
